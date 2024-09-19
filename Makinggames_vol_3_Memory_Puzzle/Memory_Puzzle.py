@@ -37,4 +37,8 @@ LIGHTBGCOLOR = GRAY
 BOXCOLOR = WHITE
 HIGHLIGHTCOLOR = BLUE
 
-DONUT = 'donut
+DONUT = 'donut'
+SQUARE = 'square'
+DIAMOND = 'diamond'
+LINES = 'lines'
+OVAL = 'oval'
