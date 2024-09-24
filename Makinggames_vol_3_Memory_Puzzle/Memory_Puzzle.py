@@ -273,3 +273,6 @@ def hasWon(revealedBoxes):
         if False in i:
             return False # return False if any boxes are covered.
     return True
+
+if __name__ == '__main__':
+    main()
