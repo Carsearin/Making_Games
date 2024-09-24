@@ -193,3 +193,15 @@ def getShapeAndColor(board, boxx, boxy):
     # shape value for x, y spot is stored in board[x][y][0]
     # color value for x, y spot is stored in board[x][y][1]
     return board[boxx][boxy][0], board[boxx][boxy][1]
+def drawBoxCovers(board, boxes, coverage):
+    # Draws boxes being covered/revealed. "boxes" is a list
+    # of two-item lists, which have the x & y spot of the box.
+    for box in boxes:
+        left, top = leftTopCoordsOfBox(box[0], box[1])
+        pygame.draw.rect(DISPLAYSURF, BGCOLOR, (left, top, BOXSIZE, BOXSIZE))
+        shape, color = getShapeAndColor(board, box[0], box[1])
+        drawIcon(shape, color, box[0], box[1])
+        if coverage > 0: # only draw the cover if there is an coverage
+            pygame.draw.rect(DISPLAYSURF, BOXCOLOR, (left, top, coverage, BOXSIZE))
+    pygame.display.update()
+    FPSCLOCK.tick(FPS)
