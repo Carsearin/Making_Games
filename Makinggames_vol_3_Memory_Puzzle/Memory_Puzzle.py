@@ -205,3 +205,7 @@ def drawBoxCovers(board, boxes, coverage):
             pygame.draw.rect(DISPLAYSURF, BOXCOLOR, (left, top, coverage, BOXSIZE))
     pygame.display.update()
     FPSCLOCK.tick(FPS)
+def revealBoxesAnimation(board, boxesToReveal):
+    # Do the "box reveal" animation.
+    for coverage in range(BOXSIZE, (-REVEALSPEED) - 1, -REVEALSPEED):
+        drawBoxCovers(board, boxesToReveal, coverage)
