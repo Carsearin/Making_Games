@@ -242,3 +242,8 @@ def startGameAnimation(board):
     for boxGroup in boxGroups:
         revealBoxesAnimation(board, boxGroup)
         coverBoxesAnimation(board, boxGroup)
+def gameWonAnimation(board):
+    # flash the background color when the player has won
+    coveredBoxes = generateRevealedBoxesData(True)
+    color1 = LIGHTBGCOLOR
+    color2 = BGCOLOR
