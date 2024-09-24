@@ -225,3 +225,6 @@ def drawBoard(board, revealed):
                 # Draw the (revealed) icon.
                 shape, color = getShapeAndColor(board, boxx, boxy)
                 drawIcon(shape, color, boxx, boxy)
+def drawHighlightBox(boxx, boxy):
+    left, top = leftTopCoordsOfBox(boxx, boxy)
+    pygame.draw.rect(DISPLAYSURF, HIGHLIGHTCOLOR, (left - 5, top - 5, BOXSIZE + 10, BOXSIZE + 10), 4)
