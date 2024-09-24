@@ -128,6 +128,7 @@ def generateRevealedBoxesData(val):
     for i in range(BOARDWIDTH):
         revealedBoxes.append([val] * BOARDHEIGHT)
     return revealedBoxes
+
 def getRandomizedBoard():
     # Get a list of every possible shape in every possible color.
     icons = []
@@ -157,11 +158,13 @@ def splitIntoGroupsOf(groupSize, theList):
     for i in range(0, len(theList), groupSize):
         result.append(theList[i:i + groupSize])
     return result
+
 def leftTopCoordsOfBox(boxx, boxy):
     # Convert board coordinates to pixel coordinates
     left = boxx * (BOXSIZE + GAPSIZE) + XMARGIN
     top = boxy * (BOXSIZE + GAPSIZE) + YMARGIN
     return (left, top)
+
 def getBoxAtPixel(x, y):
     for boxx in range(BOARDWIDTH):
         for boxy in range(BOARDHEIGHT):
@@ -170,6 +173,7 @@ def getBoxAtPixel(x, y):
             if boxRect.collidepoint(x, y):
                 return (boxx, boxy)
     return (None, None)
+
 def drawIcon(shape, color, boxx, boxy):
     quarter = int(BOXSIZE * 0.25) # syntactic sugar
     half =    int(BOXSIZE * 0.5)  # syntactic sugar
@@ -189,10 +193,12 @@ def drawIcon(shape, color, boxx, boxy):
             pygame.draw.line(DISPLAYSURF, color, (left + i, top + BOXSIZE - 1), (left + BOXSIZE - 1, top + i))
     elif shape == OVAL:
         pygame.draw.ellipse(DISPLAYSURF, color, (left, top + quarter, BOXSIZE, half))
+
 def getShapeAndColor(board, boxx, boxy):
     # shape value for x, y spot is stored in board[x][y][0]
     # color value for x, y spot is stored in board[x][y][1]
     return board[boxx][boxy][0], board[boxx][boxy][1]
+
 def drawBoxCovers(board, boxes, coverage):
     # Draws boxes being covered/revealed. "boxes" is a list
     # of two-item lists, which have the x & y spot of the box.
@@ -205,14 +211,17 @@ def drawBoxCovers(board, boxes, coverage):
             pygame.draw.rect(DISPLAYSURF, BOXCOLOR, (left, top, coverage, BOXSIZE))
     pygame.display.update()
     FPSCLOCK.tick(FPS)
+
 def revealBoxesAnimation(board, boxesToReveal):
     # Do the "box reveal" animation.
     for coverage in range(BOXSIZE, (-REVEALSPEED) - 1, -REVEALSPEED):
         drawBoxCovers(board, boxesToReveal, coverage)
+
 def coverBoxesAnimation(board, boxesToCover):
     # Do the "box cover" animation.
     for coverage in range(0, BOXSIZE + REVEALSPEED, REVEALSPEED):
         drawBoxCovers(board, boxesToCover, coverage)
+
 def drawBoard(board, revealed):
     # Draws all of the boxes in their covered or revealed state.
     for boxx in range(BOARDWIDTH):
@@ -225,9 +234,11 @@ def drawBoard(board, revealed):
                 # Draw the (revealed) icon.
                 shape, color = getShapeAndColor(board, boxx, boxy)
                 drawIcon(shape, color, boxx, boxy)
+
 def drawHighlightBox(boxx, boxy):
     left, top = leftTopCoordsOfBox(boxx, boxy)
     pygame.draw.rect(DISPLAYSURF, HIGHLIGHTCOLOR, (left - 5, top - 5, BOXSIZE + 10, BOXSIZE + 10), 4)
+
 def startGameAnimation(board):
     # Randomly reveal the boxes 8 at a time.
     coveredBoxes = generateRevealedBoxesData(False)
@@ -242,6 +253,7 @@ def startGameAnimation(board):
     for boxGroup in boxGroups:
         revealBoxesAnimation(board, boxGroup)
         coverBoxesAnimation(board, boxGroup)
+
 def gameWonAnimation(board):
     # flash the background color when the player has won
     coveredBoxes = generateRevealedBoxesData(True)
