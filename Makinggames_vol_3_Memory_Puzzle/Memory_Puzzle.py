@@ -259,10 +259,17 @@ def gameWonAnimation(board):
     coveredBoxes = generateRevealedBoxesData(True)
     color1 = LIGHTBGCOLOR
     color2 = BGCOLOR
-    
+
     for i in range(13):
         color1, color2 = color2, color1 # swap colors
         DISPLAYSURF.fill(color1)
         drawBoard(board, coveredBoxes)
         pygame.display.update()
         pygame.time.wait(300)
+
+def hasWon(revealedBoxes):
+    # Returns True if all the boxes have been revealed, otherwise False
+    for i in revealedBoxes:
+        if False in i:
+            return False # return False if any boxes are covered.
+    return True
