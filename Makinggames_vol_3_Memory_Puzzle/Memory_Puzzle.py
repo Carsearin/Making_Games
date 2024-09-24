@@ -189,3 +189,39 @@ def drawIcon(shape, color, boxx, boxy):
             pygame.draw.line(DISPLAYSURF, color, (left + i, top + BOXSIZE - 1), (left + BOXSIZE - 1, top + i))
     elif shape == OVAL:
         pygame.draw.ellipse(DISPLAYSURF, color, (left, top + quarter, BOXSIZE, half))
+def getShapeAndColor(board, boxx, boxy):
+    # shape value for x, y spot is stored in board[x][y][0]
+    # color value for x, y spot is stored in board[x][y][1]
+    return board[boxx][boxy][0], board[boxx][boxy][1]
+def drawBoxCovers(board, boxes, coverage):
+    # Draws boxes being covered/revealed. "boxes" is a list
+    # of two-item lists, which have the x & y spot of the box.
+    for box in boxes:
+        left, top = leftTopCoordsOfBox(box[0], box[1])
+        pygame.draw.rect(DISPLAYSURF, BGCOLOR, (left, top, BOXSIZE, BOXSIZE))
+        shape, color = getShapeAndColor(board, box[0], box[1])
+        drawIcon(shape, color, box[0], box[1])
+        if coverage > 0: # only draw the cover if there is an coverage
+            pygame.draw.rect(DISPLAYSURF, BOXCOLOR, (left, top, coverage, BOXSIZE))
+    pygame.display.update()
+    FPSCLOCK.tick(FPS)
+def revealBoxesAnimation(board, boxesToReveal):
+    # Do the "box reveal" animation.
+    for coverage in range(BOXSIZE, (-REVEALSPEED) - 1, -REVEALSPEED):
+        drawBoxCovers(board, boxesToReveal, coverage)
+def coverBoxesAnimation(board, boxesToCover):
+    # Do the "box cover" animation.
+    for coverage in range(0, BOXSIZE + REVEALSPEED, REVEALSPEED):
+        drawBoxCovers(board, boxesToCover, coverage)
+def drawBoard(board, revealed):
+    # Draws all of the boxes in their covered or revealed state.
+    for boxx in range(BOARDWIDTH):
+        for boxy in range(BOARDHEIGHT):
+            left, top = leftTopCoordsOfBox(boxx, boxy)
+            if not revealed[boxx][boxy]:
+                # Draw a covered box.
+                pygame.draw.rect(DISPLAYSURF, BOXCOLOR, (left, top, BOXSIZE, BOXSIZE))
+            else:
+                # Draw the (revealed) icon.
+                shape, color = getShapeAndColor(board, boxx, boxy)
+                drawIcon(shape, color, boxx, boxy)
