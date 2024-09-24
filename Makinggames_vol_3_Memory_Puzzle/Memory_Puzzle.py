@@ -209,3 +209,7 @@ def revealBoxesAnimation(board, boxesToReveal):
     # Do the "box reveal" animation.
     for coverage in range(BOXSIZE, (-REVEALSPEED) - 1, -REVEALSPEED):
         drawBoxCovers(board, boxesToReveal, coverage)
+def coverBoxesAnimation(board, boxesToCover):
+    # Do the "box cover" animation.
+    for coverage in range(0, BOXSIZE + REVEALSPEED, REVEALSPEED):
+        drawBoxCovers(board, boxesToCover, coverage)
