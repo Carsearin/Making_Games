@@ -109,3 +109,7 @@ def main():
             allMoves.append(slideTo) # record the slide
         pygame.display.update()
         FPSCLOCK.tick(FPS)
+
+def terminate():
+    pygame.quit()
+    sys.exit()
