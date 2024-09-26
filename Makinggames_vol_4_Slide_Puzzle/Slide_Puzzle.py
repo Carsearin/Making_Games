@@ -308,3 +308,6 @@ def resetAnimation(board, allMoves):
             oppositeMove = RIGHT
         slideAnimation(board, oppositeMove, '', animationSpeed=int(TILESIZE / 2))
         makeMove(board, oppositeMove)
+
+if __name__ == '__main__':
+    main()
