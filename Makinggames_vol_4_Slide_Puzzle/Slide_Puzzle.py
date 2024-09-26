@@ -93,3 +93,13 @@ def main():
                         slideTo = UP
                     elif spotx == blankx and spoty == blanky - 1:
                         slideTo = DOWN
+            elif event.type == KEYUP:
+                # check if the user pressed a key to slide a tile
+                if event.key in (K_LEFT, K_a) and isValidMove(mainBoard, LEFT):
+                    slideTo = LEFT
+                elif event.key in (K_RIGHT, K_d) and isValidMove(mainBoard, RIGHT):
+                    slideTo = RIGHT
+                elif event.key in (K_UP, K_w) and isValidMove(mainBoard, UP):
+                    slideTo = UP
+                elif event.key in (K_DOWN, K_s) and isValidMove(mainBoard, DOWN):
+                    slideTo = DOWN
