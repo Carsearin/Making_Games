@@ -83,3 +83,13 @@ def main():
                         allMoves = []
                 else:
                     # check if the clicked tile was next to the blank spot
+
+                    blankx, blanky = getBlankPosition(mainBoard)
+                    if spotx == blankx + 1 and spoty == blanky:
+                        slideTo = LEFT
+                    elif spotx == blankx - 1 and spoty == blanky:
+                        slideTo = RIGHT
+                    elif spotx == blankx and spoty == blanky + 1:
+                        slideTo = UP
+                    elif spotx == blankx and spoty == blanky - 1:
+                        slideTo = DOWN
