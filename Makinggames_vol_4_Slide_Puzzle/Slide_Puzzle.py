@@ -59,12 +59,13 @@ def main():
     allMoves = [] # list of moves made from the solved configuration
 
     while True: # main game loop
-    slideTo = None # the direction, if any, a tile should slide
-    msg = 'Click tile or press arrow keys to slide.' # contains the message to show in the upper left corner.
-    if mainBoard == SOLVEDBOARD:
-        msg = 'Solved!'
+        slideTo = None # the direction, if any, a tile should slide
+        msg = 'Click tile or press arrow keys to slide.' # contains the message to show in the upper left corner.
+        if mainBoard == SOLVEDBOARD:
+           msg = 'Solved!'
 
-    drawBoard(mainBoard, msg)
+        drawBoard(mainBoard, msg)
+
         checkForQuit()
         for event in pygame.event.get(): # event handling loop
             if event.type == MOUSEBUTTONUP:
@@ -103,16 +104,19 @@ def main():
                     slideTo = UP
                 elif event.key in (K_DOWN, K_s) and isValidMove(mainBoard, DOWN):
                     slideTo = DOWN
-    if slideTo:
+
+        if slideTo:
             slideAnimation(mainBoard, slideTo, 'Click tile or press arrow keys to slide.', 8) # show slide on screen
             makeMove(mainBoard, slideTo)
             allMoves.append(slideTo) # record the slide
         pygame.display.update()
         FPSCLOCK.tick(FPS)
 
+
 def terminate():
     pygame.quit()
     sys.exit()
+
 
 def checkForQuit():
     for event in pygame.event.get(QUIT): # get all the QUIT events
@@ -139,12 +143,14 @@ def getStartingBoard():
     board[BOARDWIDTH-1][BOARDHEIGHT-1] = BLANK
     return board
 
+
 def getBlankPosition(board):
     # Return the x and y of board coordinates of the blank space.
     for x in range(BOARDWIDTH):
         for y in range(BOARDHEIGHT):
             if board[x][y] == BLANK:
                 return (x, y)
+
 
 def makeMove(board, move):
     # This function does not check if the move is valid.
