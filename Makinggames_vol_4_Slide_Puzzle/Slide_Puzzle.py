@@ -234,3 +234,20 @@ def drawBoard(board, message):
     DISPLAYSURF.blit(RESET_SURF, RESET_RECT)
     DISPLAYSURF.blit(NEW_SURF, NEW_RECT)
     DISPLAYSURF.blit(SOLVE_SURF, SOLVE_RECT)
+
+def slideAnimation(board, direction, message, animationSpeed):
+    # Note: This function does not check if the move is valid.
+
+    blankx, blanky = getBlankPosition(board)
+    if direction == UP:
+        movex = blankx
+        movey = blanky + 1
+    elif direction == DOWN:
+        movex = blankx
+        movey = blanky - 1
+    elif direction == LEFT:
+        movex = blankx + 1
+        movey = blanky
+    elif direction == RIGHT:
+        movex = blankx - 1
+        movey = blanky
