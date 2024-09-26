@@ -103,3 +103,9 @@ def main():
                     slideTo = UP
                 elif event.key in (K_DOWN, K_s) and isValidMove(mainBoard, DOWN):
                     slideTo = DOWN
+    if slideTo:
+            slideAnimation(mainBoard, slideTo, 'Click tile or press arrow keys to slide.', 8) # show slide on screen
+            makeMove(mainBoard, slideTo)
+            allMoves.append(slideTo) # record the slide
+        pygame.display.update()
+        FPSCLOCK.tick(FPS)
