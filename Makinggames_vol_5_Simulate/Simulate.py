@@ -131,3 +131,7 @@ def main():
 
         pygame.display.update()
         FPSCLOCK.tick(FPS)
+
+def terminate():
+    pygame.quit()
+    sys.exit()
