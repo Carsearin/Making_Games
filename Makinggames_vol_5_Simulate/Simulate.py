@@ -64,3 +64,70 @@ def main():
     score = 0
     # when False, the pattern is playing. when True, waiting for the player to click a colored button:
     waitingForInput = False
+
+    while True: # main game loop
+        clickedButton = None # button that was clicked (set to YELLOW, RED, GREEN, or BLUE)
+        DISPLAYSURF.fill(bgColor)
+        drawButtons()
+
+        scoreSurf = BASICFONT.render('Score: ' + str(score), 1, WHITE)
+        scoreRect = scoreSurf.get_rect()
+        scoreRect.topleft = (WINDOWWIDTH - 100, 10)
+        DISPLAYSURF.blit(scoreSurf, scoreRect)
+
+        DISPLAYSURF.blit(infoSurf, infoRect)
+
+        checkForQuit()
+        for event in pygame.event.get(): # event handling loop
+            if event.type == MOUSEBUTTONUP:
+                mousex, mousey = event.pos
+                clickedButton = getButtonClicked(mousex, mousey)
+            elif event.type == KEYDOWN:
+                if event.key == K_q:
+                    clickedButton = YELLOW
+                elif event.key == K_w:
+                    clickedButton = BLUE
+                elif event.key == K_a:
+                    clickedButton = RED
+                elif event.key == K_s:
+                    clickedButton = GREEN
+
+
+
+        if not waitingForInput:
+            # play the pattern
+            pygame.display.update()
+            pygame.time.wait(1000)
+            pattern.append(random.choice((YELLOW, BLUE, RED, GREEN)))
+            for button in pattern:
+                flashButtonAnimation(button)
+                pygame.time.wait(FLASHDELAY)
+            waitingForInput = True
+        else:
+            # wait for the player to enter buttons
+            if clickedButton and clickedButton == pattern[currentStep]:
+                # pushed the correct button
+                flashButtonAnimation(clickedButton)
+                currentStep += 1
+                lastClickTime = time.time()
+
+                if currentStep == len(pattern):
+                    # pushed the last button in the pattern
+                    changeBackgroundAnimation()
+                    score += 1
+                    waitingForInput = False
+                    currentStep = 0 # reset back to first step
+
+            elif (clickedButton and clickedButton != pattern[currentStep]) or (currentStep != 0 and time.time() - TIMEOUT > lastClickTime):
+                # pushed the incorrect button, or has timed out
+                gameOverAnimation()
+                # reset the variables for a new game:
+                pattern = []
+                currentStep = 0
+                waitingForInput = False
+                score = 0
+                pygame.time.wait(1000)
+                changeBackgroundAnimation()
+
+        pygame.display.update()
+        FPSCLOCK.tick(FPS)
