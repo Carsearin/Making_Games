@@ -56,3 +56,11 @@ def main():
     BEEP2 = pygame.mixer.Sound('beep2.ogg')
     BEEP3 = pygame.mixer.Sound('beep3.ogg')
     BEEP4 = pygame.mixer.Sound('beep4.ogg')
+
+    # Initialize some variables for a new game
+    pattern = [] # stores the pattern of colors
+    currentStep = 0 # the color the player must push next
+    lastClickTime = 0 # timestamp of the player's last button push
+    score = 0
+    # when False, the pattern is playing. when True, waiting for the player to click a colored button:
+    waitingForInput = False
