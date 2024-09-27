@@ -182,3 +182,23 @@ def drawButtons():
     pygame.draw.rect(DISPLAYSURF, BLUE,   BLUERECT)
     pygame.draw.rect(DISPLAYSURF, RED,    REDRECT)
     pygame.draw.rect(DISPLAYSURF, GREEN,  GREENRECT)
+
+def changeBackgroundAnimation(animationSpeed=40):
+    global bgColor
+    newBgColor = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
+
+    newBgSurf = pygame.Surface((WINDOWWIDTH, WINDOWHEIGHT))
+    newBgSurf = newBgSurf.convert_alpha()
+    r, g, b = newBgColor
+    for alpha in range(0, 255, animationSpeed): # animation loop
+        checkForQuit()
+        DISPLAYSURF.fill(bgColor)
+
+        newBgSurf.fill((r, g, b, alpha))
+        DISPLAYSURF.blit(newBgSurf, (0, 0))
+
+        drawButtons() # redraw the buttons on top of the tint
+
+        pygame.display.update()
+        FPSCLOCK.tick(FPS)
+    bgColor = newBgColor
