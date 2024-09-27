@@ -202,3 +202,27 @@ def changeBackgroundAnimation(animationSpeed=40):
         pygame.display.update()
         FPSCLOCK.tick(FPS)
     bgColor = newBgColor
+
+def gameOverAnimation(color=WHITE, animationSpeed=50):
+    # play all beeps at once, then flash the background
+    origSurf = DISPLAYSURF.copy()
+    flashSurf = pygame.Surface(DISPLAYSURF.get_size())
+    flashSurf = flashSurf.convert_alpha()
+    BEEP1.play() # play all four beeps at the same time, roughly.
+    BEEP2.play()
+    BEEP3.play()
+    BEEP4.play()
+    r, g, b = color
+    for i in range(3): # do the flash 3 times
+        for start, end, step in ((0, 255, 1), (255, 0, -1)):
+            # The first iteration in this loop sets the following for loop
+            # to go from 0 to 255, the second from 255 to 0.
+            for alpha in range(start, end, animationSpeed * step): # animation loop
+                # alpha means transparency. 255 is opaque, 0 is invisible
+                checkForQuit()
+                flashSurf.fill((r, g, b, alpha))
+                DISPLAYSURF.blit(origSurf, (0, 0))
+                DISPLAYSURF.blit(flashSurf, (0, 0))
+                drawButtons()
+                pygame.display.update()
+                FPSCLOCK.tick(FPS)
