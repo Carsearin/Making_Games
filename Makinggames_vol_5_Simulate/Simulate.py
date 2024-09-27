@@ -176,6 +176,7 @@ def flashButtonAnimation(color, animationSpeed=50):
             pygame.display.update()
             FPSCLOCK.tick(FPS)
     DISPLAYSURF.blit(origSurf, (0, 0))
+
 def drawButtons():
     pygame.draw.rect(DISPLAYSURF, YELLOW, YELLOWRECT)
     pygame.draw.rect(DISPLAYSURF, BLUE,   BLUERECT)
