@@ -226,3 +226,20 @@ def gameOverAnimation(color=WHITE, animationSpeed=50):
                 drawButtons()
                 pygame.display.update()
                 FPSCLOCK.tick(FPS)
+
+
+def getButtonClicked(x, y):
+    if YELLOWRECT.collidepoint( (x, y) ):
+        return YELLOW
+    elif BLUERECT.collidepoint( (x, y) ):
+        return BLUE
+    elif REDRECT.collidepoint( (x, y) ):
+        return RED
+    elif GREENRECT.collidepoint( (x, y) ):
+        return GREEN
+    return None
+
+
+
+if __name__ == '__main__':
+    main()
