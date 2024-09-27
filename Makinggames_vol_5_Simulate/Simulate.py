@@ -132,9 +132,11 @@ def main():
         pygame.display.update()
         FPSCLOCK.tick(FPS)
 
+
 def terminate():
     pygame.quit()
     sys.exit()
+
 
 def checkForQuit():
     for event in pygame.event.get(QUIT): # get all the QUIT events
@@ -143,6 +145,7 @@ def checkForQuit():
         if event.key == K_ESCAPE:
             terminate() # terminate if the KEYUP event was for the Esc key
         pygame.event.post(event) # put the other KEYUP event objects back
+
 
 def flashButtonAnimation(color, animationSpeed=50):
     if color == YELLOW:
@@ -177,11 +180,13 @@ def flashButtonAnimation(color, animationSpeed=50):
             FPSCLOCK.tick(FPS)
     DISPLAYSURF.blit(origSurf, (0, 0))
 
+
 def drawButtons():
     pygame.draw.rect(DISPLAYSURF, YELLOW, YELLOWRECT)
     pygame.draw.rect(DISPLAYSURF, BLUE,   BLUERECT)
     pygame.draw.rect(DISPLAYSURF, RED,    REDRECT)
     pygame.draw.rect(DISPLAYSURF, GREEN,  GREENRECT)
+
 
 def changeBackgroundAnimation(animationSpeed=40):
     global bgColor
@@ -202,6 +207,7 @@ def changeBackgroundAnimation(animationSpeed=40):
         pygame.display.update()
         FPSCLOCK.tick(FPS)
     bgColor = newBgColor
+
 
 def gameOverAnimation(color=WHITE, animationSpeed=50):
     # play all beeps at once, then flash the background
@@ -228,6 +234,7 @@ def gameOverAnimation(color=WHITE, animationSpeed=50):
                 FPSCLOCK.tick(FPS)
 
 
+
 def getButtonClicked(x, y):
     if YELLOWRECT.collidepoint( (x, y) ):
         return YELLOW
@@ -238,7 +245,6 @@ def getButtonClicked(x, y):
     elif GREENRECT.collidepoint( (x, y) ):
         return GREEN
     return None
-
 
 
 if __name__ == '__main__':
