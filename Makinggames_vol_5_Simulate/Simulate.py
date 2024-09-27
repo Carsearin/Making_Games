@@ -143,3 +143,21 @@ def checkForQuit():
         if event.key == K_ESCAPE:
             terminate() # terminate if the KEYUP event was for the Esc key
         pygame.event.post(event) # put the other KEYUP event objects back
+
+def flashButtonAnimation(color, animationSpeed=50):
+    if color == YELLOW:
+        sound = BEEP1
+        flashColor = BRIGHTYELLOW
+        rectangle = YELLOWRECT
+    elif color == BLUE:
+        sound = BEEP2
+        flashColor = BRIGHTBLUE
+        rectangle = BLUERECT
+    elif color == RED:
+        sound = BEEP3
+        flashColor = BRIGHTRED
+        rectangle = REDRECT
+    elif color == GREEN:
+        sound = BEEP4
+        flashColor = BRIGHTGREEN
+        rectangle = GREENRECT
