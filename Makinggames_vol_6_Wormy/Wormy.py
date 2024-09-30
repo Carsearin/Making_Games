@@ -104,3 +104,9 @@ def runGame():
         drawScore(len(wormCoords) - 3)
         pygame.display.update()
         FPSCLOCK.tick(FPS)
+
+def drawPressKeyMsg():
+    pressKeySurf = BASICFONT.render('Press a key to play.', True, DARKGRAY)
+    pressKeyRect = pressKeySurf.get_rect()
+    pressKeyRect.topleft = (WINDOWWIDTH - 200, WINDOWHEIGHT - 30)
+    DISPLAYSURF.blit(pressKeySurf, pressKeyRect)
