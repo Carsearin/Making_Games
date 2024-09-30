@@ -44,3 +44,31 @@ def main():
     while True:
         runGame()
         showGameOverScreen()
+
+def runGame():
+    # Set a random start point.
+    startx = random.randint(5, CELLWIDTH - 6)
+    starty = random.randint(5, CELLHEIGHT - 6)
+    wormCoords = [{'x': startx,     'y': starty},
+                  {'x': startx - 1, 'y': starty},
+                  {'x': startx - 2, 'y': starty}]
+    direction = RIGHT
+
+    # Start the apple in a random place.
+    apple = getRandomLocation()
+
+    while True: # main game loop
+        for event in pygame.event.get(): # event handling loop
+            if event.type == QUIT:
+                terminate()
+            elif event.type == KEYDOWN:
+                if (event.key == K_LEFT or event.key == K_a) and direction != RIGHT:
+                    direction = LEFT
+                elif (event.key == K_RIGHT or event.key == K_d) and direction != LEFT:
+                    direction = RIGHT
+                elif (event.key == K_UP or event.key == K_w) and direction != DOWN:
+                    direction = UP
+                elif (event.key == K_DOWN or event.key == K_s) and direction != UP:
+                    direction = DOWN
+                elif event.key == K_ESCAPE:
+                    terminate()
