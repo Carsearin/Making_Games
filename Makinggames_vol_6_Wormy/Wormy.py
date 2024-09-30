@@ -151,3 +151,7 @@ def showStartScreen():
         FPSCLOCK.tick(FPS)
         degrees1 += 3 # rotate by 3 degrees each frame
         degrees2 += 7 # rotate by 7 degrees each frame
+
+def terminate():
+    pygame.quit()
+    sys.exit()
