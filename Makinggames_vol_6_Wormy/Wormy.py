@@ -30,3 +30,17 @@ LEFT = 'left'
 RIGHT = 'right'
 
 HEAD = 0 # syntactic sugar: index of the worm's head
+
+def main():
+    global FPSCLOCK, DISPLAYSURF, BASICFONT
+
+    pygame.init()
+    FPSCLOCK = pygame.time.Clock()
+    DISPLAYSURF = pygame.display.set_mode((WINDOWWIDTH, WINDOWHEIGHT))
+    BASICFONT = pygame.font.Font('freesansbold.ttf', 18)
+    pygame.display.set_caption('Wormy')
+
+    showStartScreen()
+    while True:
+        runGame()
+        showGameOverScreen()
