@@ -213,3 +213,9 @@ def runGame():
                     lastFallTime = time.time()
                     lastMoveDownTime = time.time()
                     lastMoveSidewaysTime = time.time()
+                elif (event.key == K_LEFT or event.key == K_a):
+                    movingLeft = False
+                elif (event.key == K_RIGHT or event.key == K_d):
+                    movingRight = False
+                elif (event.key == K_DOWN or event.key == K_s):
+                    movingDown = False
