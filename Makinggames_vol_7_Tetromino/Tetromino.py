@@ -200,3 +200,16 @@ def runGame():
 
             if not isValidPosition(board, fallingPiece):
                 return # can't fit a new piece on the board, so game over
+        
+        checkForQuit()
+        for event in pygame.event.get(): # event handling loop
+            if event.type == KEYUP:
+                if (event.key == K_p):
+                    # Pausing the game
+                    DISPLAYSURF.fill(BGCOLOR)
+                    pygame.mixer.music.stop()
+                    showTextScreen('Paused') # pause until a key press
+                    pygame.mixer.music.play(-1, 0.0)
+                    lastFallTime = time.time()
+                    lastMoveDownTime = time.time()
+                    lastMoveSidewaysTime = time.time()
