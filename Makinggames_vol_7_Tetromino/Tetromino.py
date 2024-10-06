@@ -366,3 +366,11 @@ def getNewPiece():
                 'y': -2, # start it above the board (i.e. less than 0)
                 'color': random.randint(0, len(COLORS)-1)}
     return newPiece
+
+
+def addToBoard(board, piece):
+    # fill in the board based on piece's location, shape, and rotation
+    for x in range(TEMPLATEWIDTH):
+        for y in range(TEMPLATEHEIGHT):
+            if PIECES[piece['shape']][piece['rotation']][y][x] != BLANK:
+                board[x + piece['x']][y + piece['y']] = piece['color']
