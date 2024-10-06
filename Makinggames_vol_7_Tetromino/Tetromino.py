@@ -473,3 +473,16 @@ def drawStatus(score, level):
     levelRect = levelSurf.get_rect()
     levelRect.topleft = (WINDOWWIDTH - 150, 50)
     DISPLAYSURF.blit(levelSurf, levelRect)
+
+
+def drawPiece(piece, pixelx=None, pixely=None):
+    shapeToDraw = PIECES[piece['shape']][piece['rotation']]
+    if pixelx == None and pixely == None:
+        # if pixelx & pixely hasn't been specified, use the location stored in the piece data structure
+        pixelx, pixely = convertToPixelCoords(piece['x'], piece['y'])
+
+    # draw each of the boxes that make up the piece
+    for x in range(TEMPLATEWIDTH):
+        for y in range(TEMPLATEHEIGHT):
+            if shapeToDraw[y][x] != BLANK:
+                drawBox(None, None, piece['color'], pixelx + (x * BOXSIZE), pixely + (y * BOXSIZE))
