@@ -434,3 +434,16 @@ def convertToPixelCoords(boxx, boxy):
     # Convert the given xy coordinates of the board to xy
     # coordinates of the location on the screen.
     return (XMARGIN + (boxx * BOXSIZE)), (TOPMARGIN + (boxy * BOXSIZE))
+
+
+def drawBox(boxx, boxy, color, pixelx=None, pixely=None):
+    # draw a single box (each tetromino piece has four boxes)
+    # at xy coordinates on the board. Or, if pixelx & pixely
+    # are specified, draw to the pixel coordinates stored in
+    # pixelx & pixely (this is used for the "Next" piece).
+    if color == BLANK:
+        return
+    if pixelx == None and pixely == None:
+        pixelx, pixely = convertToPixelCoords(boxx, boxy)
+    pygame.draw.rect(DISPLAYSURF, COLORS[color], (pixelx + 1, pixely + 1, BOXSIZE - 1, BOXSIZE - 1))
+    pygame.draw.rect(DISPLAYSURF, LIGHTCOLORS[color], (pixelx + 1, pixely + 1, BOXSIZE - 4, BOXSIZE - 4))
