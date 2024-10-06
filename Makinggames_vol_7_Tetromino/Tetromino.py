@@ -356,3 +356,13 @@ def calculateLevelAndFallFreq(score):
     level = int(score / 10) + 1
     fallFreq = 0.27 - (level * 0.02)
     return level, fallFreq
+
+def getNewPiece():
+    # return a random new piece in a random rotation and color
+    shape = random.choice(list(PIECES.keys()))
+    newPiece = {'shape': shape,
+                'rotation': random.randint(0, len(PIECES[shape]) - 1),
+                'x': int(BOARDWIDTH / 2) - int(TEMPLATEWIDTH / 2),
+                'y': -2, # start it above the board (i.e. less than 0)
+                'color': random.randint(0, len(COLORS)-1)}
+    return newPiece
