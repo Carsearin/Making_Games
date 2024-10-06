@@ -297,3 +297,24 @@ def runGame():
 
         pygame.display.update()
         FPSCLOCK.tick(FPS)
+
+def makeTextObjs(text, font, color):
+    surf = font.render(text, True, color)
+    return surf, surf.get_rect()
+
+
+def terminate():
+    pygame.quit()
+    sys.exit()
+
+
+def checkForKeyPress():
+    # Go through event queue looking for a KEYUP event.
+    # Grab KEYDOWN events to remove them from the event queue.
+    checkForQuit()
+
+    for event in pygame.event.get([KEYDOWN, KEYUP]):
+        if event.type == KEYDOWN:
+            continue
+        return event.key
+    return None
