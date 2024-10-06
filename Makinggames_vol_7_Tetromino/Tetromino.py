@@ -428,3 +428,9 @@ def removeCompleteLines(board):
         else:
             y -= 1 # move on to check next row up
     return numLinesRemoved
+
+
+def convertToPixelCoords(boxx, boxy):
+    # Convert the given xy coordinates of the board to xy
+    # coordinates of the location on the screen.
+    return (XMARGIN + (boxx * BOXSIZE)), (TOPMARGIN + (boxy * BOXSIZE))
