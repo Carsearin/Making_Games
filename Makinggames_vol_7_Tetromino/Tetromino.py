@@ -374,3 +374,11 @@ def addToBoard(board, piece):
         for y in range(TEMPLATEHEIGHT):
             if PIECES[piece['shape']][piece['rotation']][y][x] != BLANK:
                 board[x + piece['x']][y + piece['y']] = piece['color']
+
+
+def getBlankBoard():
+    # create and return a new blank board data structure
+    board = []
+    for i in range(BOARDWIDTH):
+        board.append([BLANK] * BOARDHEIGHT)
+    return board
