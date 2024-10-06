@@ -298,6 +298,7 @@ def runGame():
         pygame.display.update()
         FPSCLOCK.tick(FPS)
 
+
 def makeTextObjs(text, font, color):
     surf = font.render(text, True, color)
     return surf, surf.get_rect()
@@ -318,6 +319,7 @@ def checkForKeyPress():
             continue
         return event.key
     return None
+
 
 def showTextScreen(text):
     # This function displays large text in the
@@ -340,6 +342,7 @@ def showTextScreen(text):
     while checkForKeyPress() == None:
         pygame.display.update()
         FPSCLOCK.tick() 
+
 
 def checkForQuit():
     for event in pygame.event.get(QUIT): # get all the QUIT events
@@ -407,6 +410,7 @@ def isCompleteLine(board, y):
         if board[x][y] == BLANK:
             return False
     return True
+
 
 def removeCompleteLines(board):
     # Remove any completed lines on the board, move everything above them down, and return the number of complete lines.
