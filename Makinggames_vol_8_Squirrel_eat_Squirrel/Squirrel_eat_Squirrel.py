@@ -279,3 +279,13 @@ def runGame():
             
             pygame.display.update()
             FPSCLOCK.tick(FPS)
+
+
+
+
+
+def drawHealthMeter(currentHealth):
+    for i in range(currentHealth): # draw red health bars
+        pygame.draw.rect(DISPLAYSURF, RED,   (15, 5 + (10 * MAXHEALTH) - i * 10, 20, 10))
+    for i in range(MAXHEALTH): # draw the white outlines
+        pygame.draw.rect(DISPLAYSURF, WHITE, (15, 5 + (10 * MAXHEALTH) - i * 10, 20, 10), 1)
