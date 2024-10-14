@@ -48,3 +48,12 @@ def main():
 
     while True:
         runGame()
+
+
+def runGame():
+    # set up variables for the start of a new game
+    invulnerableMode = False  # if the player is invulnerable
+    invulnerableStartTime = 0 # time the player became invulnerable
+    gameOverMode = False      # if the player has lost
+    gameOverStartTime = 0     # time the player lost
+    winMode = False           # if the player has won
