@@ -222,31 +222,31 @@ def runGame():
                     terminate()
             
             if not gameOverMode:
-            # actually move the player
-            if moveLeft:
-                playerObj['x'] -= MOVERATE
-            if moveRight:
-                playerObj['x'] += MOVERATE
-            if moveUp:
-                playerObj['y'] -= MOVERATE
-            if moveDown:
-                playerObj['y'] += MOVERATE
-
-            if (moveLeft or moveRight or moveUp or moveDown) or playerObj['bounce'] != 0:
-                playerObj['bounce'] += 1
-
-            if playerObj['bounce'] > BOUNCERATE:
-                playerObj['bounce'] = 0 # reset bounce amount
+                # actually move the player
+                if moveLeft:
+                    playerObj['x'] -= MOVERATE
+                if moveRight:
+                    playerObj['x'] += MOVERATE
+                if moveUp:
+                    playerObj['y'] -= MOVERATE
+                if moveDown:
+                    playerObj['y'] += MOVERATE
+                    
+                if (moveLeft or moveRight or moveUp or moveDown) or playerObj['bounce'] != 0:
+                    playerObj['bounce'] += 1
+                
+                if playerObj['bounce'] > BOUNCERATE:
+                    playerObj['bounce'] = 0 # reset bounce amount
             
                # check if the player has collided with any squirrels
-            for i in range(len(squirrelObjs)-1, -1, -1):
-                sqObj = squirrelObjs[i]
-                if 'rect' in sqObj and playerObj['rect'].colliderect(sqObj['rect']):
-                    # a player/squirrel collision has occurred
+                for i in range(len(squirrelObjs)-1, -1, -1):
+                    sqObj = squirrelObjs[i]
+                    if 'rect' in sqObj and playerObj['rect'].colliderect(sqObj['rect']):
+                        # a player/squirrel collision has occurred
 
-                    if sqObj['width'] * sqObj['height'] <= playerObj['size']**2:
-                        # player is larger and eats the squirrel
-                        playerObj['size'] += int( (sqObj['width'] * sqObj['height'])**0.2 ) + 1
+                        if sqObj['width'] * sqObj['height'] <= playerObj['size']**2:
+                            # player is larger and eats the squirrel
+                            playerObj['size'] += int( (sqObj['width'] * sqObj['height'])**0.2 ) + 1
                         del squirrelObjs[i]
 
                         if playerObj['facing'] == LEFT:
