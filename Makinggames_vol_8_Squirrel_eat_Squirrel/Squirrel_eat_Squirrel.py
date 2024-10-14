@@ -134,3 +134,15 @@ def runGame():
             grassObjs.append(makeNewGrass(camerax, cameray))
         while len(squirrelObjs) < NUMSQUIRRELS:
             squirrelObjs.append(makeNewSquirrel(camerax, cameray))
+        
+        # adjust camerax and cameray if beyond the "camera slack"
+        playerCenterx = playerObj['x'] + int(playerObj['size'] / 2)
+        playerCentery = playerObj['y'] + int(playerObj['size'] / 2)
+        if (camerax + HALF_WINWIDTH) - playerCenterx > CAMERASLACK:
+            camerax = playerCenterx + CAMERASLACK - HALF_WINWIDTH
+        elif playerCenterx - (camerax + HALF_WINWIDTH) > CAMERASLACK:
+            camerax = playerCenterx - CAMERASLACK - HALF_WINWIDTH
+        if (cameray + HALF_WINHEIGHT) - playerCentery > CAMERASLACK:
+            cameray = playerCentery + CAMERASLACK - HALF_WINHEIGHT
+        elif playerCentery - (cameray + HALF_WINHEIGHT) > CAMERASLACK:
+            cameray = playerCentery - CAMERASLACK - HALF_WINHEIGHT
