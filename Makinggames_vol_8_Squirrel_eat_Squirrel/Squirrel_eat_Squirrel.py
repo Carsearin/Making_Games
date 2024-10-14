@@ -302,3 +302,10 @@ def getBounceAmount(currentBounce, bounceRate, bounceHeight):
     # Larger bounceHeight means a higher bounce.
     # currentBounce will always be less than bounceRate
     return int(math.sin( (math.pi / float(bounceRate)) * currentBounce ) * bounceHeight)
+
+def getRandomVelocity():
+    speed = random.randint(SQUIRRELMINSPEED, SQUIRRELMAXSPEED)
+    if random.randint(0, 1) == 0:
+        return speed
+    else:
+        return -speed
