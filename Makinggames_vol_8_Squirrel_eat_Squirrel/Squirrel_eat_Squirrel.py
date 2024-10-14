@@ -57,3 +57,20 @@ def runGame():
     gameOverMode = False      # if the player has lost
     gameOverStartTime = 0     # time the player lost
     winMode = False           # if the player has won
+
+    # create the surfaces to hold game text
+    gameOverSurf = BASICFONT.render('Game Over', True, WHITE)
+    gameOverRect = gameOverSurf.get_rect()
+    gameOverRect.center = (HALF_WINWIDTH, HALF_WINHEIGHT)
+
+    winSurf = BASICFONT.render('You have achieved OMEGA SQUIRREL!', True, WHITE)
+    winRect = winSurf.get_rect()
+    winRect.center = (HALF_WINWIDTH, HALF_WINHEIGHT)
+
+    winSurf2 = BASICFONT.render('(Press "r" to restart.)', True, WHITE)
+    winRect2 = winSurf2.get_rect()
+    winRect2.center = (HALF_WINWIDTH, HALF_WINHEIGHT + 30)
+
+    # camerax and cameray are the top left of where the camera view is
+    camerax = 0
+    cameray = 0
