@@ -74,3 +74,19 @@ def runGame():
     # camerax and cameray are the top left of where the camera view is
     camerax = 0
     cameray = 0
+
+    grassObjs = []    # stores all the grass objects in the game
+    squirrelObjs = [] # stores all the non-player squirrel objects
+    # stores the player object:
+    playerObj = {'surface': pygame.transform.scale(L_SQUIR_IMG, (STARTSIZE, STARTSIZE)),
+                 'facing': LEFT,
+                 'size': STARTSIZE,
+                 'x': HALF_WINWIDTH,
+                 'y': HALF_WINHEIGHT,
+                 'bounce':0,
+                 'health': MAXHEALTH}
+
+    moveLeft  = False
+    moveRight = False
+    moveUp    = False
+    moveDown  = False
