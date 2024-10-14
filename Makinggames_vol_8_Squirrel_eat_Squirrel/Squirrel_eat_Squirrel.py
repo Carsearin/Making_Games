@@ -237,3 +237,31 @@ def runGame():
 
             if playerObj['bounce'] > BOUNCERATE:
                 playerObj['bounce'] = 0 # reset bounce amount
+            
+               # check if the player has collided with any squirrels
+            for i in range(len(squirrelObjs)-1, -1, -1):
+                sqObj = squirrelObjs[i]
+                if 'rect' in sqObj and playerObj['rect'].colliderect(sqObj['rect']):
+                    # a player/squirrel collision has occurred
+
+                    if sqObj['width'] * sqObj['height'] <= playerObj['size']**2:
+                        # player is larger and eats the squirrel
+                        playerObj['size'] += int( (sqObj['width'] * sqObj['height'])**0.2 ) + 1
+                        del squirrelObjs[i]
+
+                        if playerObj['facing'] == LEFT:
+                            playerObj['surface'] = pygame.transform.scale(L_SQUIR_IMG, (playerObj['size'], playerObj['size']))
+                        if playerObj['facing'] == RIGHT:
+                            playerObj['surface'] = pygame.transform.scale(R_SQUIR_IMG, (playerObj['size'], playerObj['size']))
+
+                        if playerObj['size'] > WINSIZE:
+                            winMode = True # turn on "win mode"
+
+                    elif not invulnerableMode:
+                        # player is smaller and takes damage
+                        invulnerableMode = True
+                        invulnerableStartTime = time.time()
+                        playerObj['health'] -= 1
+                        if playerObj['health'] == 0:
+                            gameOverMode = True # turn on "game over mode"
+                            gameOverStartTime = time.time()
