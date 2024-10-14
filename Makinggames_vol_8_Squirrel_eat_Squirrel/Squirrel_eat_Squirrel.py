@@ -90,3 +90,9 @@ def runGame():
     moveRight = False
     moveUp    = False
     moveDown  = False
+
+    # start off with some random grass images on the screen
+    for i in range(10):
+        grassObjs.append(makeNewGrass(camerax, cameray))
+        grassObjs[i]['x'] = random.randint(0, WINWIDTH)
+        grassObjs[i]['y'] = random.randint(0, WINHEIGHT)
