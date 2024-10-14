@@ -28,3 +28,23 @@ SQUIRRELMAXSPEED = 7 # fastest squirrel speed
 DIRCHANGEFREQ = 2    # % chance of direction change per frame
 LEFT = 'left'
 RIGHT = 'right'
+
+def main():
+    global FPSCLOCK, DISPLAYSURF, BASICFONT, L_SQUIR_IMG, R_SQUIR_IMG, GRASSIMAGES
+
+    pygame.init()
+    FPSCLOCK = pygame.time.Clock()
+    pygame.display.set_icon(pygame.image.load('gameicon.png'))
+    DISPLAYSURF = pygame.display.set_mode((WINWIDTH, WINHEIGHT))
+    pygame.display.set_caption('Squirrel Eat Squirrel')
+    BASICFONT = pygame.font.Font('freesansbold.ttf', 32)
+
+    # load the image files
+    L_SQUIR_IMG = pygame.image.load('squirrel.png')
+    R_SQUIR_IMG = pygame.transform.flip(L_SQUIR_IMG, True, False)
+    GRASSIMAGES = []
+    for i in range(1, 5):
+        GRASSIMAGES.append(pygame.image.load('grass%s.png' % i))
+
+    while True:
+        runGame()
