@@ -341,3 +341,13 @@ def makeNewSquirrel(camerax, cameray):
     sq['bouncerate'] = random.randint(10, 18)
     sq['bounceheight'] = random.randint(10, 50)
     return sq
+
+
+def makeNewGrass(camerax, cameray):
+    gr = {}
+    gr['grassImage'] = random.randint(0, len(GRASSIMAGES) - 1)
+    gr['width']  = GRASSIMAGES[0].get_width()
+    gr['height'] = GRASSIMAGES[0].get_height()
+    gr['x'], gr['y'] = getRandomOffCameraPos(camerax, cameray, gr['width'], gr['height'])
+    gr['rect'] = pygame.Rect( (gr['x'], gr['y'], gr['width'], gr['height']) )
+    return gr
