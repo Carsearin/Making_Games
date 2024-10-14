@@ -309,3 +309,16 @@ def getRandomVelocity():
         return speed
     else:
         return -speed
+
+
+def getRandomOffCameraPos(camerax, cameray, objWidth, objHeight):
+    # create a Rect of the camera view
+    cameraRect = pygame.Rect(camerax, cameray, WINWIDTH, WINHEIGHT)
+    while True:
+        x = random.randint(camerax - WINWIDTH, camerax + (2 * WINWIDTH))
+        y = random.randint(cameray - WINHEIGHT, cameray + (2 * WINHEIGHT))
+        # create a Rect object with the random coordinates and use colliderect()
+        # to make sure the right edge isn't in the camera view.
+        objRect = pygame.Rect(x, y, objWidth, objHeight)
+        if not objRect.colliderect(cameraRect):
+            return x, y
