@@ -96,3 +96,26 @@ def runGame():
         grassObjs.append(makeNewGrass(camerax, cameray))
         grassObjs[i]['x'] = random.randint(0, WINWIDTH)
         grassObjs[i]['y'] = random.randint(0, WINHEIGHT)
+    
+    while True: # main game loop
+        # Check if we should turn off invulnerability
+        if invulnerableMode and time.time() - invulnerableStartTime > INVULNTIME:
+            invulnerableMode = False
+
+        # move all the squirrels
+        for sObj in squirrelObjs:
+            # move the squirrel, and adjust for their bounce
+            sObj['x'] += sObj['movex']
+            sObj['y'] += sObj['movey']
+            sObj['bounce'] += 1
+            if sObj['bounce'] > sObj['bouncerate']:
+                sObj['bounce'] = 0 # reset bounce amount
+
+            # random chance they change direction
+            if random.randint(0, 99) < DIRCHANGEFREQ:
+                sObj['movex'] = getRandomVelocity()
+                sObj['movey'] = getRandomVelocity()
+                if sObj['movex'] > 0: # faces right
+                    sObj['surface'] = pygame.transform.scale(R_SQUIR_IMG, (sObj['width'], sObj['height']))
+                else: # faces left
+                    sObj['surface'] = pygame.transform.scale(L_SQUIR_IMG, (sObj['width'], sObj['height']))
