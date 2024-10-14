@@ -265,3 +265,17 @@ def runGame():
                         if playerObj['health'] == 0:
                             gameOverMode = True # turn on "game over mode"
                             gameOverStartTime = time.time()
+            
+            else:
+                # game is over, show "game over" text
+                DISPLAYSURF.blit(gameOverSurf, gameOverRect)
+                if time.time() - gameOverStartTime > GAMEOVERTIME:
+                    return # end the current game
+            
+            # check if the player has won.
+            if winMode:
+                DISPLAYSURF.blit(winSurf, winRect)
+                DISPLAYSURF.blit(winSurf2, winRect2)
+            
+            pygame.display.update()
+            FPSCLOCK.tick(FPS)
