@@ -294,3 +294,11 @@ def drawHealthMeter(currentHealth):
 def terminate():
     pygame.quit()
     sys.exit()
+
+
+def getBounceAmount(currentBounce, bounceRate, bounceHeight):
+    # Returns the number of pixels to offset based on the bounce.
+    # Larger bounceRate means a slower bounce.
+    # Larger bounceHeight means a higher bounce.
+    # currentBounce will always be less than bounceRate
+    return int(math.sin( (math.pi / float(bounceRate)) * currentBounce ) * bounceHeight)
