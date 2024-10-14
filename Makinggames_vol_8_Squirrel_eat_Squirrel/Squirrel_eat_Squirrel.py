@@ -119,3 +119,12 @@ def runGame():
                     sObj['surface'] = pygame.transform.scale(R_SQUIR_IMG, (sObj['width'], sObj['height']))
                 else: # faces left
                     sObj['surface'] = pygame.transform.scale(L_SQUIR_IMG, (sObj['width'], sObj['height']))
+    
+
+    # go through all the objects and see if any need to be deleted.
+        for i in range(len(grassObjs) - 1, -1, -1):
+            if isOutsideActiveArea(camerax, cameray, grassObjs[i]):
+                del grassObjs[i]
+        for i in range(len(squirrelObjs) - 1, -1, -1):
+            if isOutsideActiveArea(camerax, cameray, squirrelObjs[i]):
+                del squirrelObjs[i]
