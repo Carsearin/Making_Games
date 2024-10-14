@@ -220,3 +220,20 @@ def runGame():
 
                 elif event.key == K_ESCAPE:
                     terminate()
+            
+            if not gameOverMode:
+            # actually move the player
+            if moveLeft:
+                playerObj['x'] -= MOVERATE
+            if moveRight:
+                playerObj['x'] += MOVERATE
+            if moveUp:
+                playerObj['y'] -= MOVERATE
+            if moveDown:
+                playerObj['y'] += MOVERATE
+
+            if (moveLeft or moveRight or moveUp or moveDown) or playerObj['bounce'] != 0:
+                playerObj['bounce'] += 1
+
+            if playerObj['bounce'] > BOUNCERATE:
+                playerObj['bounce'] = 0 # reset bounce amount
