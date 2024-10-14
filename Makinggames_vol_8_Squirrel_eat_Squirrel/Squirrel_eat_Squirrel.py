@@ -146,3 +146,37 @@ def runGame():
             cameray = playerCentery + CAMERASLACK - HALF_WINHEIGHT
         elif playerCentery - (cameray + HALF_WINHEIGHT) > CAMERASLACK:
             cameray = playerCentery - CAMERASLACK - HALF_WINHEIGHT
+        
+        # draw the green background
+        DISPLAYSURF.fill(GRASSCOLOR)
+
+        # draw all the grass objects on the screen
+        for gObj in grassObjs:
+            gRect = pygame.Rect( (gObj['x'] - camerax,
+                                  gObj['y'] - cameray,
+                                  gObj['width'],
+                                  gObj['height']) )
+            DISPLAYSURF.blit(GRASSIMAGES[gObj['grassImage']], gRect)
+
+
+        # draw the other squirrels
+        for sObj in squirrelObjs:
+            sObj['rect'] = pygame.Rect( (sObj['x'] - camerax,
+                                         sObj['y'] - cameray - getBounceAmount(sObj['bounce'], sObj['bouncerate'], sObj['bounceheight']),
+                                         sObj['width'],
+                                         sObj['height']) )
+            DISPLAYSURF.blit(sObj['surface'], sObj['rect'])
+
+
+        # draw the player squirrel
+        flashIsOn = round(time.time(), 1) * 10 % 2 == 1
+        if not gameOverMode and not (invulnerableMode and flashIsOn):
+            playerObj['rect'] = pygame.Rect( (playerObj['x'] - camerax,
+                                              playerObj['y'] - cameray - getBounceAmount(playerObj['bounce'], BOUNCERATE, BOUNCEHEIGHT),
+                                              playerObj['size'],
+                                              playerObj['size']) )
+            DISPLAYSURF.blit(playerObj['surface'], playerObj['rect'])
+
+
+        # draw the health meter
+        drawHealthMeter(playerObj['health'])
