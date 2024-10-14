@@ -361,3 +361,7 @@ def isOutsideActiveArea(camerax, cameray, obj):
     boundsRect = pygame.Rect(boundsLeftEdge, boundsTopEdge, WINWIDTH * 3, WINHEIGHT * 3)
     objRect = pygame.Rect(obj['x'], obj['y'], obj['width'], obj['height'])
     return not boundsRect.colliderect(objRect)
+
+
+if __name__ == '__main__':
+    main()
