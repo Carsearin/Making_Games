@@ -351,3 +351,13 @@ def makeNewGrass(camerax, cameray):
     gr['x'], gr['y'] = getRandomOffCameraPos(camerax, cameray, gr['width'], gr['height'])
     gr['rect'] = pygame.Rect( (gr['x'], gr['y'], gr['width'], gr['height']) )
     return gr
+
+
+def isOutsideActiveArea(camerax, cameray, obj):
+    # Return False if camerax and cameray are more than
+    # a half-window length beyond the edge of the window.
+    boundsLeftEdge = camerax - WINWIDTH
+    boundsTopEdge = cameray - WINHEIGHT
+    boundsRect = pygame.Rect(boundsLeftEdge, boundsTopEdge, WINWIDTH * 3, WINHEIGHT * 3)
+    objRect = pygame.Rect(obj['x'], obj['y'], obj['width'], obj['height'])
+    return not boundsRect.colliderect(objRect)
