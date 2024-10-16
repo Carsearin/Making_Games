@@ -138,3 +138,78 @@ def runLevel(levels, levelNum):
     cameraDown = False
     cameraLeft = False
     cameraRight = False
+
+    while True: # main game loop
+        # Reset these variables:
+        playerMoveTo = None
+        keyPressed = False
+
+        for event in pygame.event.get(): # event handling loop
+            if event.type == QUIT:
+                # Player clicked the "X" at the corner of the window.
+                terminate()
+
+            elif event.type == KEYDOWN:
+                # Handle key presses
+                keyPressed = True
+                if event.key == K_LEFT:
+                    playerMoveTo = LEFT
+                elif event.key == K_RIGHT:
+                    playerMoveTo = RIGHT
+                elif event.key == K_UP:
+                    playerMoveTo = UP
+                elif event.key == K_DOWN:
+                    playerMoveTo = DOWN
+
+                # Set the camera move mode.
+                elif event.key == K_a:
+                    cameraLeft = True
+                elif event.key == K_d:
+                    cameraRight = True
+                elif event.key == K_w:
+                    cameraUp = True
+                elif event.key == K_s:
+                    cameraDown = True
+
+                elif event.key == K_n:
+                    return 'next'
+                elif event.key == K_b:
+                    return 'back'
+
+                elif event.key == K_ESCAPE:
+                    terminate() # Esc key quits.
+                elif event.key == K_BACKSPACE:
+                    return 'reset' # Reset the level.
+                elif event.key == K_p:
+                    # Change the player image to the next one.
+                    currentImage += 1
+                    if currentImage >= len(PLAYERIMAGES):
+                        # After the last player image, use the first one.
+                        currentImage = 0
+                    mapNeedsRedraw = True
+
+            elif event.type == KEYUP:
+                # Unset the camera move mode.
+                if event.key == K_a:
+                    cameraLeft = False
+                elif event.key == K_d:
+                    cameraRight = False
+                elif event.key == K_w:
+                    cameraUp = False
+                elif event.key == K_s:
+                    cameraDown = False
+
+        if playerMoveTo != None and not levelIsComplete:
+            # If the player pushed a key to move, make the move
+            # (if possible) and push any stars that are pushable.
+            moved = makeMove(mapObj, gameStateObj, playerMoveTo)
+
+            if moved:
+                # increment the step counter.
+                gameStateObj['stepCounter'] += 1
+                mapNeedsRedraw = True
+
+            if isLevelFinished(levelObj, gameStateObj):
+                # level is solved, we should show the "Solved!" image.
+                levelIsComplete = True
+                keyPressed = False
