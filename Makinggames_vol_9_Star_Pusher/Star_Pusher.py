@@ -92,3 +92,24 @@ def main():
     # details on the format of this file and how to make your own levels.
     levels = readLevelsFile('starPusherLevels.txt')
     currentLevelIndex = 0
+
+    # The main game loop. This loop runs a single level, when the user
+    # finishes that level, the next/previous level is loaded.
+    while True: # main game loop
+        # Run the level to actually start playing the game:
+        result = runLevel(levels, currentLevelIndex)
+
+        if result in ('solved', 'next'):
+            # Go to the next level.
+            currentLevelIndex += 1
+            if currentLevelIndex >= len(levels):
+                # If there are no more levels, go back to the first one.
+                currentLevelIndex = 0
+        elif result == 'back':
+            # Go to the previous level.
+            currentLevelIndex -= 1
+            if currentLevelIndex < 0:
+                # If there are no previous levels, go to the last one.
+                currentLevelIndex = len(levels)-1
+        elif result == 'reset':
+            pass # Do nothing. Loop re-calls runLevel() to reset the level
