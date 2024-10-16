@@ -27,3 +27,20 @@ UP = 'up'
 DOWN = 'down'
 LEFT = 'left'
 RIGHT = 'right'
+
+
+def main():
+    global FPSCLOCK, DISPLAYSURF, IMAGESDICT, TILEMAPPING, OUTSIDEDECOMAPPING, BASICFONT, PLAYERIMAGES, currentImage
+
+    # Pygame initialization and basic set up of the global variables.
+    pygame.init()
+    FPSCLOCK = pygame.time.Clock()
+
+    # Because the Surface object stored in DISPLAYSURF was returned
+    # from the pygame.display.set_mode() function, this is the
+    # Surface object that is drawn to the actual computer screen
+    # when pygame.display.update() is called.
+    DISPLAYSURF = pygame.display.set_mode((WINWIDTH, WINHEIGHT))
+
+    pygame.display.set_caption('Star Pusher')
+    BASICFONT = pygame.font.Font('freesansbold.ttf', 18)
