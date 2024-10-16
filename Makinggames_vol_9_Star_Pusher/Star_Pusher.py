@@ -85,3 +85,10 @@ def main():
                     IMAGESDICT['catgirl'],
                     IMAGESDICT['horngirl'],
                     IMAGESDICT['pinkgirl']]
+    
+    startScreen() # show the title screen until the user presses a key
+
+    # Read in the levels from the text file. See the readLevelsFile() for
+    # details on the format of this file and how to make your own levels.
+    levels = readLevelsFile('starPusherLevels.txt')
+    currentLevelIndex = 0
