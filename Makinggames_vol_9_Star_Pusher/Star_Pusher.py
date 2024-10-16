@@ -213,3 +213,44 @@ def runLevel(levels, levelNum):
                 # level is solved, we should show the "Solved!" image.
                 levelIsComplete = True
                 keyPressed = False
+        
+        DISPLAYSURF.fill(BGCOLOR)
+
+        if mapNeedsRedraw:
+            mapSurf = drawMap(mapObj, gameStateObj, levelObj['goals'])
+            mapNeedsRedraw = False
+
+        if cameraUp and cameraOffsetY < MAX_CAM_X_PAN:
+            cameraOffsetY += CAM_MOVE_SPEED
+        elif cameraDown and cameraOffsetY > -MAX_CAM_X_PAN:
+            cameraOffsetY -= CAM_MOVE_SPEED
+        if cameraLeft and cameraOffsetX < MAX_CAM_Y_PAN:
+            cameraOffsetX += CAM_MOVE_SPEED
+        elif cameraRight and cameraOffsetX > -MAX_CAM_Y_PAN:
+            cameraOffsetX -= CAM_MOVE_SPEED
+
+        # Adjust mapSurf's Rect object based on the camera offset.
+        mapSurfRect = mapSurf.get_rect()
+        mapSurfRect.center = (HALF_WINWIDTH + cameraOffsetX, HALF_WINHEIGHT + cameraOffsetY)
+
+        # Draw mapSurf to the DISPLAYSURF Surface object.
+        DISPLAYSURF.blit(mapSurf, mapSurfRect)
+
+        DISPLAYSURF.blit(levelSurf, levelRect)
+        stepSurf = BASICFONT.render('Steps: %s' % (gameStateObj['stepCounter']), 1, TEXTCOLOR)
+        stepRect = stepSurf.get_rect()
+        stepRect.bottomleft = (20, WINHEIGHT - 10)
+        DISPLAYSURF.blit(stepSurf, stepRect)
+
+        if levelIsComplete:
+            # is solved, show the "Solved!" image until the player
+            # has pressed a key.
+            solvedRect = IMAGESDICT['solved'].get_rect()
+            solvedRect.center = (HALF_WINWIDTH, HALF_WINHEIGHT)
+            DISPLAYSURF.blit(IMAGESDICT['solved'], solvedRect)
+
+            if keyPressed:
+                return 'solved'
+
+        pygame.display.update() # draw DISPLAYSURF to the screen.
+        FPSCLOCK.tick()
