@@ -113,3 +113,28 @@ def main():
                 currentLevelIndex = len(levels)-1
         elif result == 'reset':
             pass # Do nothing. Loop re-calls runLevel() to reset the level
+
+
+def runLevel(levels, levelNum):
+    global currentImage
+    levelObj = levels[levelNum]
+    mapObj = decorateMap(levelObj['mapObj'], levelObj['startState']['player'])
+    gameStateObj = copy.deepcopy(levelObj['startState'])
+    mapNeedsRedraw = True # set to True to call drawMap()
+    levelSurf = BASICFONT.render('Level %s of %s' % (levelNum + 1, len(levels)), 1, TEXTCOLOR)
+    levelRect = levelSurf.get_rect()
+    levelRect.bottomleft = (20, WINHEIGHT - 35)
+    mapWidth = len(mapObj) * TILEWIDTH
+    mapHeight = (len(mapObj[0]) - 1) * TILEFLOORHEIGHT + TILEHEIGHT
+    MAX_CAM_X_PAN = abs(HALF_WINHEIGHT - int(mapHeight / 2)) + TILEWIDTH
+    MAX_CAM_Y_PAN = abs(HALF_WINWIDTH - int(mapWidth / 2)) + TILEHEIGHT
+
+    levelIsComplete = False
+    # Track how much the camera has moved:
+    cameraOffsetX = 0
+    cameraOffsetY = 0
+    # Track if the keys to move the camera are being held down:
+    cameraUp = False
+    cameraDown = False
+    cameraLeft = False
+    cameraRight = False
