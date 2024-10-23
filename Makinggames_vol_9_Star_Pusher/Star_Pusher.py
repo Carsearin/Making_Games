@@ -264,3 +264,43 @@ def isWall(mapObj, x, y):
     elif mapObj[x][y] in ('#', 'x'):
         return True # wall is blocking
     return False
+
+
+def decorateMap(mapObj, startxy):
+    """Makes a copy of the given map object and modifies it.
+    Here is what is done to it:
+        * Walls that are corners are turned into corner pieces.
+        * The outside/inside floor tile distinction is made.
+        * Tree/rock decorations are randomly added to the outside tiles.
+
+    Returns the decorated map object."""
+
+    startx, starty = startxy # Syntactic sugar
+
+    # Copy the map object so we don't modify the original passed
+    mapObjCopy = copy.deepcopy(mapObj)
+
+    # Remove the non-wall characters from the map data
+    for x in range(len(mapObjCopy)):
+        for y in range(len(mapObjCopy[0])):
+            if mapObjCopy[x][y] in ('$', '.', '@', '+', '*'):
+                mapObjCopy[x][y] = ' '
+
+    # Flood fill to determine inside/outside floor tiles.
+    floodFill(mapObjCopy, startx, starty, ' ', 'o')
+
+    # Convert the adjoined walls into corner tiles.
+    for x in range(len(mapObjCopy)):
+        for y in range(len(mapObjCopy[0])):
+
+            if mapObjCopy[x][y] == '#':
+                if (isWall(mapObjCopy, x, y-1) and isWall(mapObjCopy, x+1, y)) or \
+                   (isWall(mapObjCopy, x+1, y) and isWall(mapObjCopy, x, y+1)) or \
+                   (isWall(mapObjCopy, x, y+1) and isWall(mapObjCopy, x-1, y)) or \
+                   (isWall(mapObjCopy, x-1, y) and isWall(mapObjCopy, x, y-1)):
+                    mapObjCopy[x][y] = 'x'
+
+            elif mapObjCopy[x][y] == ' ' and random.randint(0, 99) < OUTSIDE_DECORATION_PCT:
+                mapObjCopy[x][y] = random.choice(list(OUTSIDEDECOMAPPING.keys()))
+
+    return mapObjCopy
