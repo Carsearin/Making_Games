@@ -304,3 +304,19 @@ def decorateMap(mapObj, startxy):
                 mapObjCopy[x][y] = random.choice(list(OUTSIDEDECOMAPPING.keys()))
 
     return mapObjCopy
+
+
+def isBlocked(mapObj, gameStateObj, x, y):
+    """Returns True if the (x, y) position on the map is
+    blocked by a wall or star, otherwise return False."""
+
+    if isWall(mapObj, x, y):
+        return True
+
+    elif x < 0 or x >= len(mapObj) or y < 0 or y >= len(mapObj[x]):
+        return True # x and y aren't actually on the map.
+
+    elif (x, y) in gameStateObj['stars']:
+        return True # a star is blocking
+
+    return False
