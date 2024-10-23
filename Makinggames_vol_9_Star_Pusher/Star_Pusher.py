@@ -525,3 +525,51 @@ def floodFill(mapObj, x, y, oldCharacter, newCharacter):
         floodFill(mapObj, x, y+1, oldCharacter, newCharacter) # call down
     if y > 0 and mapObj[x][y-1] == oldCharacter:
         floodFill(mapObj, x, y-1, oldCharacter, newCharacter) # call up
+
+
+def drawMap(mapObj, gameStateObj, goals):
+    """Draws the map to a Surface object, including the player and
+    stars. This function does not call pygame.display.update(), nor
+    does it draw the "Level" and "Steps" text in the corner."""
+
+    # mapSurf will be the single Surface object that the tiles are drawn
+    # on, so that it is easy to position the entire map on the DISPLAYSURF
+    # Surface object. First, the width and height must be calculated.
+    mapSurfWidth = len(mapObj) * TILEWIDTH
+    mapSurfHeight = (len(mapObj[0]) - 1) * TILEFLOORHEIGHT + TILEHEIGHT
+    mapSurf = pygame.Surface((mapSurfWidth, mapSurfHeight))
+    mapSurf.fill(BGCOLOR) # start with a blank color on the surface.
+
+    # Draw the tile sprites onto this surface.
+    for x in range(len(mapObj)):
+        for y in range(len(mapObj[x])):
+            spaceRect = pygame.Rect((x * TILEWIDTH, y * TILEFLOORHEIGHT, TILEWIDTH, TILEHEIGHT))
+            if mapObj[x][y] in TILEMAPPING:
+                baseTile = TILEMAPPING[mapObj[x][y]]
+            elif mapObj[x][y] in OUTSIDEDECOMAPPING:
+                baseTile = TILEMAPPING[' ']
+
+            # First draw the base ground/wall tile.
+            mapSurf.blit(baseTile, spaceRect)
+
+            if mapObj[x][y] in OUTSIDEDECOMAPPING:
+                # Draw any tree/rock decorations that are on this tile.
+                mapSurf.blit(OUTSIDEDECOMAPPING[mapObj[x][y]], spaceRect)
+            elif (x, y) in gameStateObj['stars']:
+                if (x, y) in goals:
+                    # A goal AND star are on this space, draw goal first.
+                    mapSurf.blit(IMAGESDICT['covered goal'], spaceRect)
+                # Then draw the star sprite.
+                mapSurf.blit(IMAGESDICT['star'], spaceRect)
+            elif (x, y) in goals:
+                # Draw a goal without a star on it.
+                mapSurf.blit(IMAGESDICT['uncovered goal'], spaceRect)
+
+            # Last draw the player on the board.
+            if (x, y) == gameStateObj['player']:
+                # Note: The value "currentImage" refers
+                # to a key in "PLAYERIMAGES" which has the
+                # specific player image we want to show.
+                mapSurf.blit(PLAYERIMAGES[currentImage], spaceRect)
+
+    return mapSurf
