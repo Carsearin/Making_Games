@@ -573,3 +573,12 @@ def drawMap(mapObj, gameStateObj, goals):
                 mapSurf.blit(PLAYERIMAGES[currentImage], spaceRect)
 
     return mapSurf
+
+
+def isLevelFinished(levelObj, gameStateObj):
+    """Returns True if all the goals have stars in them."""
+    for goal in levelObj['goals']:
+        if goal not in gameStateObj['stars']:
+            # Found a space with a goal but no star on it.
+            return False
+    return True
