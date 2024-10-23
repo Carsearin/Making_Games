@@ -254,3 +254,13 @@ def runLevel(levels, levelNum):
 
         pygame.display.update() # draw DISPLAYSURF to the screen.
         FPSCLOCK.tick()
+
+
+def isWall(mapObj, x, y):
+    """Returns True if the (x, y) position on
+    the map is a wall, otherwise return False."""
+    if x < 0 or x >= len(mapObj) or y < 0 or y >= len(mapObj[x]):
+        return False # x and y aren't actually on the map.
+    elif mapObj[x][y] in ('#', 'x'):
+        return True # wall is blocking
+    return False
