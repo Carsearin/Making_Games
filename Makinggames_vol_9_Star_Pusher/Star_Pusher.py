@@ -582,3 +582,8 @@ def isLevelFinished(levelObj, gameStateObj):
             # Found a space with a goal but no star on it.
             return False
     return True
+
+
+def terminate():
+    pygame.quit()
+    sys.exit()
