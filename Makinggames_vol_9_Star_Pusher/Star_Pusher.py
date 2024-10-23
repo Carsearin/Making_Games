@@ -503,3 +503,25 @@ def readLevelsFile(filename):
             gameStateObj = {}
             levelNum += 1
     return levels
+
+
+def floodFill(mapObj, x, y, oldCharacter, newCharacter):
+    """Changes any values matching oldCharacter on the map object to
+    newCharacter at the (x, y) position, and does the same for the
+    positions to the left, right, down, and up of (x, y), recursively."""
+
+    # In this game, the flood fill algorithm creates the inside/outside
+    # floor distinction. This is a "recursive" function.
+    # For more info on the Flood Fill algorithm, see:
+    #   http://en.wikipedia.org/wiki/Flood_fill
+    if mapObj[x][y] == oldCharacter:
+        mapObj[x][y] = newCharacter
+
+    if x < len(mapObj) - 1 and mapObj[x+1][y] == oldCharacter:
+        floodFill(mapObj, x+1, y, oldCharacter, newCharacter) # call right
+    if x > 0 and mapObj[x-1][y] == oldCharacter:
+        floodFill(mapObj, x-1, y, oldCharacter, newCharacter) # call left
+    if y < len(mapObj[x]) - 1 and mapObj[x][y+1] == oldCharacter:
+        floodFill(mapObj, x, y+1, oldCharacter, newCharacter) # call down
+    if y > 0 and mapObj[x][y-1] == oldCharacter:
+        floodFill(mapObj, x, y-1, oldCharacter, newCharacter) # call up
